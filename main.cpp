@@ -1,6 +1,18 @@
 #include <iostream> 
 using namespace std; 
 
+const int MAX_ITEMS = 10;
+string namagame = "INVENTORY GAME";
+
+void additem(string inventory[], int &jumlahItem, string itemBaru){
+  if (jumlahItem < MAX_ITEMS) {
+    inventory[jumlahItem] = itemBaru;
+    jumlahItem++;
+    cout << "Berhasil menambahkan item: " << itemBaru << endl;
+  } else {
+    cout << "Inventory penuh! Maksimal " << MAX_ITEMS << " item." << endl;
+  }
+}
 int main(){
 
     cout << R"(
@@ -30,8 +42,8 @@ int main(){
         |  | 3. Use Item   |  |
         |  | 4. Search     |  |
         |  | 5. Exit       |  |
-         \  \____________/  /
-          \________________/
+        \  \_______________/ /
+         \__________________/
 
        "SMALL STEPS, BIG ADVENTURES"
     )";
