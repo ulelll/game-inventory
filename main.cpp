@@ -1,6 +1,8 @@
 
 #include <iostream>
 #include <string>
+#include <limits>
+
 using namespace std;
 
 const int MAX_ITEMS = 10;
@@ -17,29 +19,49 @@ void additem(string inventory[], int &jumlahItem, string itemBaru) {
     }
 }
 
+bool waitNext() {
+    char choiceContinue; 
+
+    cout << "\n================================\n"; 
+    cout << "1. Kembali ke menu utama\n"; 
+    cout << "2. keluar dari game\n";
+    cout << "pilihan kamu: ";
+
+    cin >> choiceContinue; 
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+
+    while (choiceContinue != '1' && choiceContinue != '2'){
+        cout << "pilihan tidak valid!, masukkan 1 atau 2: "; 
+        cin >> choiceContinue; 
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    if (choiceContinue == '1') {
+        cout << "tekan Enter untuk kembali ke menu...."; 
+        cin.get();
+        return true; 
+    }
+        return false; 
+        
+}
+
 int main() {
     string inventory[MAX_ITEMS];
     int jumlahItem = 0;
     string itemBaru;
     int pilihan;
 
+    bool lanjut = true; 
+
     do {
         cout << R"(
-              .       *        .        *
-         *  \   |   /
-          '.  .---.  .'
-        --   (     )   --
-          .'  '---'  '.
-            /   |   \
-       /\                   /\
-      /  \       /\        /  \
-     /    \     /  \  /\  /    \
-    /      \   /    \/  \/      \
-   /   /\   \ /      \   \  /\   \
-  /___/__\___V________\___\/__\___\
 
-              ||  ||  ||
-           ___||__||__||___
+.------..------..------..------..------.
+|H.--. ||E.--. ||L.--. ||L.--. ||O.--. |
+| :/\: || (\/) || :/\: || :/\: || :/\: |
+| (__) || :\/: || (__) || (__) || :\/: |
+| '--'H|| '--'E|| '--'L|| '--'L|| '--'O|
+ `------'`------'`------'`------'`------'
+            _______________
           /                 \
          /   .-""""""""-.    \
         |   /  INVENTORY  \   |
@@ -50,15 +72,15 @@ int main() {
         |  | 3. Use Item   |  |
         |  | 4. Search     |  |
         |  | 5. Exit       |  |
-        \  \_______________/ /
-         \__________________/
+        \  \_______________/  /
+         \__________________ /
 
-       "SMALL STEPS, BIG ADVENTURES"
+ "=========== Poker Dungeons ============"
     )";
 
         cout << "Masukkan pilihan Anda (1 - 5): ";
         cin >> pilihan;
-        cin.ignore();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         switch (pilihan) {
             case 1:
@@ -102,8 +124,8 @@ int main() {
                 int nomorItem;
                 cout << "Masukkan nomor item yang ingin digunakan: ";
                 cin >> nomorItem;
-                cin.ignore();
-
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                
                 if (nomorItem >= 1 && nomorItem <= jumlahItem) {
                     cout << "Item " << inventory[nomorItem - 1]
                          << " berhasil digunakan!" << endl;
@@ -120,7 +142,7 @@ int main() {
                 break;
 
             case 4:
-                if (jumlahItem == 0) {
+                 if (jumlahItem == 0) {
                     cout << "Inventory kosong. Tidak ada item untuk dicari." << endl;
                 } else {
                     string katakunci;
@@ -150,7 +172,33 @@ int main() {
                 break;
         }
 
-    } while (pilihan != 5);
+    if (pilihan != 5){
+        lanjut = waitNext(); 
+    }
+    } while (pilihan != 5 && lanjut);
+
+    cout << R"(
+ ________  _______   _______               
+|\   ____\|\  ___ \ |\  ___ \              
+\ \  \___|\ \   __/|\ \   __/|             
+ \ \_____  \ \  \_|/_\ \  \_|/__           
+  \|____|\  \ \  \_|\ \ \  \_|\ \          
+    ____\_\  \ \_______\ \_______\         
+   |\_________\|_______|\|_______|         
+   \|_________|                            
+                                           
+                                           
+  ___    ___ ________  ___  ___  ___       
+ |\  \  /  /|\   __  \|\  \|\  \|\  \      
+ \ \  \/  / | \  \|\  \ \  \\\  \ \  \     
+  \ \    / / \ \  \\\  \ \  \\\  \ \  \    
+   \/  /  /   \ \  \\\  \ \  \\\  \ \__\   
+ __/  / /      \ \_______\ \_______\|__|   
+|\___/ /        \|_______|\|_______|   ___ 
+\|___|/                               |\__\
+                                      \|__|
+    
+    )"; 
 
     return 0;
 }
