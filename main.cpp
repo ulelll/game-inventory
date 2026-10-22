@@ -120,7 +120,25 @@ int main() {
                 break;
 
             case 4:
-                // Cari item
+                if (jumlahItem == 0) {
+                    cout << "Inventory kosong. Tidak ada item untuk dicari." << endl;
+                } else {
+                    string katakunci;
+                    cout << "Masukkan kata kunci untuk mencari item: ";
+                    getline(cin, katakunci);
+
+                    bool ditemukan = false;
+                    cout << "\n=== HASIL PENCARIAN ===" << endl;
+                    for (int i = 0; i < jumlahItem; i++) {
+                        if (inventory[i].find(katakunci) != string::npos) {
+                            cout << i + 1 << ". " << inventory[i] << endl;
+                            ditemukan = true;
+                        }
+                    }
+                    if (!ditemukan) {
+                        cout << "Item tidak ditemukan dalam inventory." << endl;
+                    }
+                }
                 break;
 
             case 5:
